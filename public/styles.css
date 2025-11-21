@@ -1,6 +1,6 @@
 body {
     font-family: "Segoe UI", Arial, sans-serif;
-    background: #eef2f5;
+    background: #e2ffe6;
     margin: 0;
     padding: 0;
 }
@@ -8,7 +8,7 @@ body {
 .container {
     width: 750px;
     margin: 40px auto;
-    background: white;
+    background: rgb(180, 208, 170);
     padding: 35px;
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.08);
@@ -28,7 +28,7 @@ body {
 }
 
 .project-info {
-    background: #f7fbff;
+    background: #c0ebc3;
     padding: 15px;
     margin-top: 20px;
     border-left: 4px solid #0078ff;
