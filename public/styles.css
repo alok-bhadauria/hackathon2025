@@ -1,4 +1,44 @@
 body {
-  font-family: Arial;
-  padding: 20px;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+.header {
+    background: #1f1f1f;
+    color: white;
+    padding: 20px 0;
+}
+
+.hero {
+    padding: 20px;
+}
+
+.upload-section {
+    margin: 30px auto;
+}
+
+button {
+    padding: 10px 25px;
+    background: #2d89ef;
+    border: none;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.results {
+    margin: 30px auto;
+    width: 60%;
+    background: #f2f2f2;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.footer {
+    margin-top: 40px;
+    padding: 10px;
+    background: #1f1f1f;
+    color: white;
 }

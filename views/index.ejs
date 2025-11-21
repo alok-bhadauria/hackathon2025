@@ -1,11 +1,58 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title><%= title %></title>
+    <title>Soil Vision - Hackathon 2025</title>
     <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-    <h1>Hackathon Starter Running</h1>
-    <p>Your AI + Fullstack project is ready.</p>
+
+<header class="header">
+    <h1>ML Manthan Hackathon 2025</h1>
+    <h2>Vision-Based Soil Quality Assessment</h2>
+</header>
+
+<section class="hero">
+    <p>Upload a soil image to analyze soil type, texture, and quality using our AI model.</p>
+</section>
+
+<section class="upload-section">
+    <form id="uploadForm" enctype="multipart/form-data">
+        <input type="file" id="soilImage" name="soilImage" required>
+        <button type="submit">Analyze Soil</button>
+    </form>
+</section>
+
+<section id="resultSection" class="results" style="display:none;">
+    <h3>Prediction</h3>
+    <div id="results"></div>
+</section>
+
+<footer class="footer">
+    <p>Team Submission - Hackathon 2025</p>
+</footer>
+
+<script>
+document.getElementById("uploadForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append("soilImage", document.getElementById("soilImage").files[0]);
+
+    const res = await fetch("/predict", {
+        method: "POST",
+        body: formData
+    });
+
+    const data = await res.json();
+
+    document.getElementById("resultSection").style.display = "block";
+    document.getElementById("results").innerHTML = `
+        <p>Soil Type: ${data.soilType}</p>
+        <p>Quality: ${data.quality}</p>
+        <p>Confidence: ${data.confidence}%</p>
+    `;
+});
+</script>
+
 </body>
 </html>
