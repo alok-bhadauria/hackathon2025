@@ -1,32 +1,49 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title>Soil Vision</title>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Soil Vision — ML + Fullstack</title>
     <link rel="stylesheet" href="/styles.css" />
-</head>
-<body>
+  </head>
 
-<h1>Team • ML + Fullstack — Soil Vision</h1>
-<p>Fast soil-type prediction from surface images</p>
+  <body>
+    <div class="container">
 
-<h2>Upload soil image</h2>
+      <h1>Soil Vision</h1>
+      <p class="subtitle">Fast soil-type prediction from surface images</p>
 
-<div class="upload-box">
-    <input type="file" id="imageInput" accept="image/*" />
-    <button onclick="analyzeImage()">Analyze</button>
-</div>
+      <div class="card upload-card">
+        <h2>Upload soil image</h2>
 
-<div id="preview"></div>
+        <div class="upload-row">
+          <input type="file" id="imageInput" accept="image/*" />
+          <button onclick="analyzeImage()">Analyze</button>
+        </div>
 
-<h3 id="resultBox"></h3>
+        <img id="previewImg" class="preview-img" style="display:none" />
+      </div>
 
-<footer>ML Manthan Hackathon 2025 • Team</footer>
+      <div id="resultBox" class="result-box" style="display:none"></div>
 
-<!-- TensorFlow.js -->
-<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.20.0"></script>
+      <footer class="footer">
+        ML Manthan Hackathon 2025 • Team
+      </footer>
+    </div>
 
-<!-- Predict script -->
-<script src="/js/predict.js"></script>
+    <script src="/js/predict.js"></script>
 
-</body>
+    <script>
+      // live preview
+      const imgInput = document.getElementById("imageInput");
+      const preview = document.getElementById("previewImg");
+
+      imgInput.addEventListener("change", () => {
+        const file = imgInput.files[0];
+        if (!file) return;
+
+        preview.src = URL.createObjectURL(file);
+        preview.style.display = "block";
+      });
+    </script>
+  </body>
 </html>

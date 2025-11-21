@@ -1,28 +1,27 @@
+// index.js
 import express from "express";
-import path from "path";
-import mainRoutes from "./routes/main.js";
 import predictRoutes from "./routes/predict.js";
+import path from "path";
+import { fileURLToPath } from "url";
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-// Needed for ES modules
-const __dirname = path.resolve();
-
-// Middlewares
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-// Static folder
-app.use(express.static(path.join(__dirname, "public")));
-
-// View engine
-app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
 
-// Routes
-app.use("/", mainRoutes);
-app.use("/predict", predictRoutes);
+app.use(express.static(path.join(__dirname, "public")));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
-// Start server
-app.listen(PORT, () => console.log(`🚀 Server running on http://localhost:${PORT}`));
+app.get("/", (req, res) => {
+  res.render("index");
+});
+
+// prediction API
+app.use("/api", predictRoutes);
+
+const PORT = 3000;
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
+});
