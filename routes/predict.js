@@ -1,38 +1,32 @@
 import express from "express";
 import multer from "multer";
-import * as tf from "@tensorflow/tfjs";
-import { predictSoilType } from "../ml/inference.js";
+import fs from "fs";
+import fetch from "node-fetch";
+import FormData from "form-data";
 
 const router = express.Router();
-const upload = multer();
+const upload = multer({ dest: "uploads/" });
 
 router.post("/", upload.single("image"), async (req, res) => {
-    try {
-        if (!req.file) {
-            return res.json({ error: "No file uploaded" });
-        }
+  try {
+    const form = new FormData();
+    form.append("file", fs.createReadStream(req.file.path));
 
-        const buffer = new Uint8Array(req.file.buffer);
+    const response = await fetch("http://127.0.0.1:5000/predict", {
+      method: "POST",
+      body: form
+    });
 
-        // tfjs-only safe decoder (no tfjs-node)
-        const image = await tf.node.decodeImage(buffer, 3); // Works only if tfjs-node is installed
-        // If tfjs-node is not installed, use pure JS fallback:
-        // const blobUrl = URL.createObjectURL(new Blob([buffer]));
-        // const img = await loadImage(blobUrl);
-        // const image = tf.browser.fromPixels(img);
+    const result = await response.json();
 
-        const result = await predictSoilType(image);
+    fs.unlinkSync(req.file.path);
 
-        res.json({
-            success: true,
-            soilType: result.name,
-            crops: result.crops,
-            seasons: result.seasons
-        });
+    res.render("index", { result, error: null });
 
-    } catch (err) {
-        res.json({ error: err.message });
-    }
+  } catch (err) {
+    console.error(err);
+    res.render("index", { result: null, error: "Prediction failed." });
+  }
 });
 
 export default router;

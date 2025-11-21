@@ -1,49 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Soil Vision — ML + Fullstack</title>
+<html>
+<head>
+    <title>Soil Classification</title>
     <link rel="stylesheet" href="/styles.css" />
-  </head>
+</head>
+<body>
 
-  <body>
-    <div class="container">
+<div class="container">
+    <h1>Soil Classification System</h1>
 
-      <h1>Soil Vision</h1>
-      <p class="subtitle">Fast soil-type prediction from surface images</p>
+    <form action="/predict" method="POST" enctype="multipart/form-data">
+        <input type="file" name="image" required />
+        <button type="submit">Analyze Soil</button>
+    </form>
 
-      <div class="card upload-card">
-        <h2>Upload soil image</h2>
+    <% if (error) { %>
+        <div class="error"><%= error %></div>
+    <% } %>
 
-        <div class="upload-row">
-          <input type="file" id="imageInput" accept="image/*" />
-          <button onclick="analyzeImage()">Analyze</button>
+    <% if (result) { %>
+        <div class="result-box">
+            <h2>Prediction Result</h2>
+
+            <p><strong>Soil Type:</strong> <%= result.soil_type %></p>
+            <p><strong>Confidence:</strong> <%= (result.confidence * 100).toFixed(2) %>%</p>
+            <p><strong>Description:</strong> <%= result.description %></p>
+            <p><strong>Recommended Crops:</strong> <%= result.recommended_crops %></p>
+            <p><strong>Best Season:</strong> <%= result.best_season %></p>
         </div>
+    <% } %>
+</div>
 
-        <img id="previewImg" class="preview-img" style="display:none" />
-      </div>
-
-      <div id="resultBox" class="result-box" style="display:none"></div>
-
-      <footer class="footer">
-        ML Manthan Hackathon 2025 • Team
-      </footer>
-    </div>
-
-    <script src="/js/predict.js"></script>
-
-    <script>
-      // live preview
-      const imgInput = document.getElementById("imageInput");
-      const preview = document.getElementById("previewImg");
-
-      imgInput.addEventListener("change", () => {
-        const file = imgInput.files[0];
-        if (!file) return;
-
-        preview.src = URL.createObjectURL(file);
-        preview.style.display = "block";
-      });
-    </script>
-  </body>
+</body>
 </html>

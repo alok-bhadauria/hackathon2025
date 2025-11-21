@@ -1,44 +1,38 @@
 {
-    "Alluvial_Soil": {
-        "texture": "Loamy and silty with good moisture retention",
-        "fertility": "High",
-        "best_crops": ["Rice", "Wheat", "Sugarcane", "Pulses", "Maize"],
-        "best_season": "Kharif and Rabi"
-    },
-    "Arid_Soil": {
-        "texture": "Sandy and coarse with low organic matter",
-        "fertility": "Low",
-        "best_crops": ["Millets", "Barley", "Bajra", "Jowar", "Dates"],
-        "best_season": "Kharif (dry climate crops)"
-    },
-    "Black_Soil": {
-        "texture": "Clayey and moisture-retentive",
-        "fertility": "Medium to High",
-        "best_crops": ["Cotton", "Sugarcane", "Soybean", "Groundnut", "Wheat"],
-        "best_season": "Kharif and Early Rabi"
-    },
-    "Laterite_Soil": {
-        "texture": "Leached, coarse, and gritty",
-        "fertility": "Low",
-        "best_crops": ["Tea", "Coffee", "Cashew", "Rubber", "Tapioca"],
-        "best_season": "Monsoon and Post-Monsoon"
-    },
-    "Mountain_Soil": {
-        "texture": "Loose, gravel-rich, and porous",
-        "fertility": "Low to Medium",
-        "best_crops": ["Tea", "Apples", "Barley", "Spices", "Maize"],
-        "best_season": "Cool-season crops during Summer"
-    },
-    "Red_Soil": {
-        "texture": "Sandy and clayey with high iron content",
-        "fertility": "Low to Medium",
-        "best_crops": ["Groundnut", "Millets", "Pulses", "Potato", "Oilseeds"],
-        "best_season": "Kharif"
-    },
-    "Yellow_Soil": {
-        "texture": "Fine-grained with moderate drainage",
-        "fertility": "Moderate",
-        "best_crops": ["Pulses", "Oilseeds", "Maize", "Cotton", "Peas"],
-        "best_season": "Kharif and Rabi"
-    }
+  "labels": [
+    "Alluvial Soil",
+    "Arid Soil",
+    "Black Soil",
+    "Laterite Soil",
+    "Mountain Soil",
+    "Red Soil",
+    "Yellow Soil"
+  ],
+  "descriptions": [
+    "Highly fertile soil found in river plains.",
+    "Dry, sandy soil with low moisture retention.",
+    "Clay-rich soil with high water retention.",
+    "Iron-rich soil common in tropical regions.",
+    "Found in hilly and forested regions.",
+    "Rich in iron oxides, low in nitrogen.",
+    "Sandy soil common in humid regions."
+  ],
+  "crops": [
+    "Rice, Wheat, Sugarcane, Pulses",
+    "Barley, Millets, Cotton",
+    "Cotton, Soybean, Sorghum",
+    "Tea, Coffee, Rubber",
+    "Tea, Barley, Maize",
+    "Groundnut, Millet, Potato",
+    "Maize, Peanuts, Pulses"
+  ],
+  "seasons": [
+    "Kharif & Rabi",
+    "Kharif",
+    "Kharif",
+    "Throughout year",
+    "Rabi",
+    "Kharif",
+    "Kharif & Rabi"
+  ]
 }
