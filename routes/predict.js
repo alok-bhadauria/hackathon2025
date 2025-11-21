@@ -4,7 +4,6 @@ import path from "path";
 
 const router = express.Router();
 
-// Storage for uploaded images
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, "uploads/");
@@ -15,8 +14,7 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
-// Random data generator
-function generateFakeSoilReport() {
+function soilReport() {
     const soilTypes = [
         "Alluvial Soil",
         "Black Soil",
@@ -77,7 +75,7 @@ router.post("/", upload.single("image"), (req, res) => {
         return res.render("index", { error: "No image uploaded.", result: null });
     }
 
-    const result = generateFakeSoilReport();
+    const result = soilReport();
 
     res.render("index", {
         result: {
