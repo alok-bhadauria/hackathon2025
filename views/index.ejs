@@ -1,61 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Soil Classification</title>
+    <title>Soil Vision – Smart Soil Analysis</title>
     <link rel="stylesheet" href="/styles.css" />
 </head>
 <body>
 
-<header class="header">
-    <h1>GLA MANTHAN 3.0 (2025)</h1>
-    <h2>Soil Classification Dashboard</h2>
-</header>
-
 <div class="container">
 
-    <div class="card description-card">
-        <h2>Project Overview</h2>
-        <p>
-            This system uses a deep learning model to classify soil types from uploaded images.
-            It analyzes texture, color, and visual patterns to identify the soil category and 
-            returns a detailed description, recommended crops, and seasonal suitability.
-        </p>
+    <h1 class="title">Soil Vision – Smart Soil Analysis</h1>
+    <p class="subtitle">AI-inspired soil classification dashboard for fast agricultural insights.</p>
+
+    <div class="project-info">
+        This tool analyzes surface soil characteristics and generates structured soil insights 
+        for agricultural understanding and planning.
     </div>
 
-    <div class="card upload-card">
-        <h2>Upload Soil Image</h2>
-        <form action="/predict" method="POST" enctype="multipart/form-data">
-            <label class="file-label">
-                <input type="file" name="image" required />
-            </label>
-            <button type="submit" class="btn-primary">Analyze Soil</button>
-        </form>
-    </div>
+    <form action="/predict" method="POST" enctype="multipart/form-data" class="upload-box">
+        <input type="file" name="image" required />
+        <button type="submit">Analyze Soil</button>
+    </form>
 
     <% if (error) { %>
-        <div class="card error">
-            <%= error %>
-        </div>
+        <div class="error"><%= error %></div>
     <% } %>
 
     <% if (result) { %>
-        <div class="card result-box">
-            <h2>Prediction Result</h2>
-            <div class="result-item"><strong>Soil Type:</strong> <%= result.soil_type %></div>
-            <div class="result-item"><strong>Confidence:</strong> <%= (result.confidence * 100).toFixed(2) %>%</div>
-            <div class="result-item"><strong>Description:</strong> <%= result.description %></div>
-            <div class="result-item"><strong>Recommended Crops:</strong> <%= result.recommended_crops %></div>
-            <div class="result-item"><strong>Best Season:</strong> <%= result.best_season %></div>
+        <div class="result-box fade-in">
+            <h2>Soil Analysis Report</h2>
+
+            <img src="<%= result.image_path %>" class="preview" />
+
+            <div class="info">
+                <p><strong>Soil Type:</strong> <%= result.soil_type %></p>
+                <p><strong>Best Crops:</strong> <%= result.best_crops.join(", ") %></p>
+                <p><strong>Most Common Region:</strong> <%= result.region %></p>
+                <p><strong>Water Holding Capacity:</strong> <%= result.water_capacity %></p>
+                <p><strong>Soil Fertility:</strong> <%= result.fertility %></p>
+                <p><strong>pH Level:</strong> <%= result.ph %></p>
+                <p><strong>Organic Carbon:</strong> <%= result.organic_carbon %></p>
+            </div>
         </div>
     <% } %>
 
+    <footer>
+        Team T31 • Manish Kumar • Kartikay Garg • Alok Bhadauria • Krishan Chauhan
+    </footer>
 </div>
-
-<footer class="footer">
-    Team T31 — Members: Manish Kumar, Kartikay Garg, Alok Bhadauria, Krishan Chauhan
-</footer>
 
 </body>
 </html>
