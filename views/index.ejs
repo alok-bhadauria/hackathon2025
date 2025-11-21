@@ -17,7 +17,13 @@
 
 <section class="upload-section">
     <form id="uploadForm" enctype="multipart/form-data">
-        <input type="file" id="soilImage" name="soilImage" required>
+
+        <label class="custom-file" for="soilImage" id="fileLabel">
+            Click to choose soil image
+        </label>
+
+        <input type="file" id="soilImage" name="soilImage" accept="image/*" required>
+
         <button type="submit">Analyze Soil</button>
     </form>
 </section>
@@ -32,11 +38,20 @@
 </footer>
 
 <script>
+const fileInput = document.getElementById("soilImage");
+const fileLabel = document.getElementById("fileLabel");
+
+fileInput.addEventListener("change", () => {
+    if (fileInput.files.length > 0) {
+        fileLabel.textContent = fileInput.files[0].name;
+    }
+});
+
 document.getElementById("uploadForm").addEventListener("submit", async function(e) {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append("soilImage", document.getElementById("soilImage").files[0]);
+    formData.append("soilImage", fileInput.files[0]);
 
     const res = await fetch("/predict", {
         method: "POST",
