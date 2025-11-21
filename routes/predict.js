@@ -68,8 +68,6 @@ function soilReport() {
         organic_carbon: (Math.random() * 1.5).toFixed(2) + "%",
     };
 }
-
-// POST route
 router.post("/", upload.single("image"), (req, res) => {
     if (!req.file) {
         return res.render("index", { error: "No image uploaded.", result: null });
