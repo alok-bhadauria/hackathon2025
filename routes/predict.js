@@ -1,23 +1,23 @@
 const express = require("express");
-const multer = require("multer");
-const path = require("path");
-const runInference = require("../ml/inference");
-
 const router = express.Router();
+const multer = require("multer");
+const infer = require("../ml/predict");
 
-const storage = multer.diskStorage({
-    destination: path.join(__dirname, "../public/uploads"),
-    filename: (req, file, cb) => {
-        cb(null, Date.now() + path.extname(file.originalname));
+const upload = multer({ storage: multer.memoryStorage() });
+
+router.post("/predict", upload.single("image"), async (req, res) => {
+  try {
+    if (!req.file) {
+      return res.json({ error: "No image uploaded" });
     }
-});
 
-const upload = multer({ storage });
+    const result = await infer(req.file.buffer);
+    return res.json(result);
 
-router.post("/predict", upload.single("soilImage"), async (req, res) => {
-    const imgPath = req.file.path;
-    const prediction = await runInference(imgPath);
-    res.json(prediction);
+  } catch (err) {
+    console.error("Prediction error:", err);
+    res.json({ error: "Prediction failed" });
+  }
 });
 
 module.exports = router;

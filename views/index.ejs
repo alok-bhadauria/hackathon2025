@@ -1,74 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Soil Vision - Hackathon 2025</title>
-    <link rel="stylesheet" href="/styles.css">
+    <title>Soil Vision</title>
+    <link rel="stylesheet" href="/styles.css" />
 </head>
 <body>
 
-<header class="header">
-    <h1>GLA ML Manthan 3.0 (2025)</h1>
-    <h2>Vision-Based Soil Quality Assessment</h2>
-</header>
+<h1>Team • ML + Fullstack — Soil Vision</h1>
+<p>Fast soil-type prediction from surface images</p>
 
-<section class="hero">
-    <p>Upload a soil image to analyze soil type, texture, and quality using our AI model.</p>
-</section>
+<h2>Upload soil image</h2>
 
-<section class="upload-section">
-    <form id="uploadForm" enctype="multipart/form-data">
+<div class="upload-box">
+    <input type="file" id="imageInput" accept="image/*" />
+    <button onclick="analyzeImage()">Analyze</button>
+</div>
 
-        <label class="custom-file" for="soilImage" id="fileLabel">
-            Click to choose soil image
-        </label>
+<div id="preview"></div>
 
-        <input type="file" id="soilImage" name="soilImage" accept="image/*" required>
+<h3 id="resultBox"></h3>
 
-        <button type="submit">Analyze Soil</button>
-    </form>
-</section>
+<footer>ML Manthan Hackathon 2025 • Team</footer>
 
-<section id="resultSection" class="results" style="display:none;">
-    <h3>Prediction</h3>
-    <div id="results"></div>
-</section>
+<!-- TensorFlow.js -->
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.20.0"></script>
 
-<footer class="footer">
-    <h2>Team T31 - Hackathon 2025 (GLAU)</h2>
-    <p>Team Members : Manish Kumar, Kartikay Garg, Alok Bhadauria, Krishan Chauhan</p>
-</footer>
-
-<script>
-const fileInput = document.getElementById("soilImage");
-const fileLabel = document.getElementById("fileLabel");
-
-fileInput.addEventListener("change", () => {
-    if (fileInput.files.length > 0) {
-        fileLabel.textContent = fileInput.files[0].name;
-    }
-});
-
-document.getElementById("uploadForm").addEventListener("submit", async function(e) {
-    e.preventDefault();
-
-    const formData = new FormData();
-    formData.append("soilImage", fileInput.files[0]);
-
-    const res = await fetch("/predict", {
-        method: "POST",
-        body: formData
-    });
-
-    const data = await res.json();
-
-    document.getElementById("resultSection").style.display = "block";
-    document.getElementById("results").innerHTML = `
-        <p>Soil Type: ${data.soilType}</p>
-        <p>Quality: ${data.quality}</p>
-        <p>Confidence: ${data.confidence}%</p>
-    `;
-});
-</script>
+<!-- Predict script -->
+<script src="/js/predict.js"></script>
 
 </body>
 </html>
